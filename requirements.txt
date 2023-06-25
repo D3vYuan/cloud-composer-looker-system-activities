@@ -1,0 +1,4 @@
+looker-sdk
+json-converter
+jsonlines
+google-cloud-secret-manager
