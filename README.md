@@ -103,25 +103,25 @@ The *LookML* field can be extracted by clicking the *information* icon beside th
 
 The following are the mappings for *Content Usage* explore:
 
-|Dimensions|LookML|
-|--|--|
-|Content ID|content_usage.content_id|
-|Content Title|content_usage.content_title|
-|Content Type|content_usage.content_type|
-|Days Since Last Access Tiers|content_usage.days_since_last
-_access_tiers|
-|Days Since Last Accessed|content_usage.days_since_last
-_accessed|
-|ID|content_usage.id|
-|Incremented Counts > API
-Count|content_usage.api_count|
-|Incremented Counts > Embed
-Count|content_usage.embed_count|
-|Incremented Counts >
-Favourite Count|content_usage.favorite_count|
-|Content ID|content_usage.content_id|
-|Content ID|content_usage.content_id|
+|#|Dimensions|LookML|
+|--|--|--|
+|1|Content ID|content_usage.content_id|
+|2|Content Title|content_usage.content_title|
+|3|Content Type|content_usage.content_type|
+|4|Days Since Last Access Tiers|content_usage.days_since_last_access_tiers|
+|5|Days Since Last Accessed|content_usage.days_since_last_accessed|
+|6|ID|content_usage.id|
+|7|Incremented Counts > API Count|content_usage.api_count|
+|8|Incremented Counts > Embed Count|content_usage.embed_count|
+|9|Incremented Counts > Favourite Count|content_usage.favorite_count|
+|10|Incremented Counts > Public Count|content_usage.public_count|
+|11|Incremented Counts > Schedule Count|content_usage.schedule_count|
+|12|Incremented Counts > View Count|content_usage.other_count|
+|13|Last Accessed Date > Time|content_usage.last_accessed_time|
 
+<br/>
+
+`NOTE:` Only *content_usage.last_accessed_time* is extracted as the rest of the *last_accessed_* fields are just drill down or slices of this field
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -133,8 +133,21 @@ This task will map the fields from the looker to their corresponding fields in `
 
 The following are the mappings for *Content Usage* explore:
 
-|LookML|BigQuery|Type|
+|#|LookML|BigQuery|
 |--|--|--|
+|1|content_usage.content_id|content_id|
+|2|content_usage.content_title|content_title|
+|3|content_usage.content_type|content_type|
+|4|content_usage.days_since_last_access_tiers|days_since_last_access_tiers|
+|5|content_usage.days_since_last_accessed|days_since_last_accessed|
+|6|content_usage.id|id|
+|7|content_usage.api_count|api_count|
+|8|content_usage.embed_count|embed_count|
+|9|content_usage.favorite_count|favorite_count|
+|10|content_usage.public_count|public_count|
+|11|content_usage.schedule_count|schedule_count|
+|12|content_usage.other_count|other_count|
+|13|content_usage.last_accessed_time|last_accessed_time|
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -168,6 +181,32 @@ Base on the requirements, the following components are required to be setup:
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### BigQuery
+
+Create the table to house the *Content Usage* data with the following fields:
+
+<br/>
+
+|#|Name|Type|Mode
+|--|--|--|--|
+|1|content_id|String|Nullable|
+|2|content_title|String|Nullable|
+|3|content_type|String|Nullable|
+|4|days_since_last_access_tiers|String|Nullable|
+|5|days_since_last_accessed|Integer|Nullable|
+|6|id|Integer|Nullable|
+|7|api_count|Integer|Nullable|
+|8|embed_count|Integer|Nullable|
+|9|favorite_count|Integer|Nullable|
+|10|public_count|Integer|Nullable|
+|11|schedule_count|Integer|Nullable|
+|12|other_count|Integer|Nullable|
+|13|last_accessed_time|Datetime|Nullable|
+
+<br/>
+
+| ![bigquery-fields-schema][bigquery-fields-schema] | 
+|:--:| 
+| *BigQuery Content_Usage Schema* |
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -436,6 +475,7 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 
 [looker-lookml-fields-extract]: ./image/looker-to-lookml-fields-extraction.png
+[bigquery-fields-schema]: ./image/bigquery-fields-schema.png
 
 [cloud-storage-lifecycle]: ./image/cloud-storage-lifecycle-management.png
 [cloud-composer-pipeline]: ./image/cloud-composer-pipeline.png
