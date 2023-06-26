@@ -25,6 +25,13 @@
         <a href="#about-the-project">About The Project</a>
     </li>
     <li>
+        <a href="#data">Data</a>
+        <ul>
+            <li><a href="#looker-to-lookml">Looker-to-LookML</a></li>
+            <li><a href="#lookml-to-bigquery">LookML-to-BigQuery</a></li>
+        </ul>
+    </li>
+    <li>
         <a href="#setup">Setup</a>
         <ul>
             <li><a href="#looker">Looker</a></li>
@@ -68,6 +75,66 @@ The following are some of the requirements:
 
 - Extract *Content Usage* System Activities for both Initial Load and Incremental Load
 - Ingest the data into `Bigquery`
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+---
+
+<!-- Data -->
+
+## Data
+
+Base on the requirements, the following data mapping are required:
+- `Looker to LookML` - Map the fields from the explore to their underlying fields to extract the data via `Looker API`
+- `LookML to BigQuery` - Map the looker fields into bigquery fields to ingest the data into `BigQuery`
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Looker to LookML
+
+This task will map the fields from the explore to their underlying fields to extract the data via `Looker API` <br/>
+The *LookML* field can be extracted by clicking the *information* icon beside the *Explore* field.
+
+| ![looker-lookml-fields-extract][looker-lookml-fields-extract] | 
+|:--:| 
+| *Looker to LookML Field Mapping* |
+
+<br/>
+
+The following are the mappings for *Content Usage* explore:
+
+|Dimensions|LookML|
+|--|--|
+|Content ID|content_usage.content_id|
+|Content Title|content_usage.content_title|
+|Content Type|content_usage.content_type|
+|Days Since Last Access Tiers|content_usage.days_since_last
+_access_tiers|
+|Days Since Last Accessed|content_usage.days_since_last
+_accessed|
+|ID|content_usage.id|
+|Incremented Counts > API
+Count|content_usage.api_count|
+|Incremented Counts > Embed
+Count|content_usage.embed_count|
+|Incremented Counts >
+Favourite Count|content_usage.favorite_count|
+|Content ID|content_usage.content_id|
+|Content ID|content_usage.content_id|
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### LookML to BigQuery
+
+This task will map the fields from the looker to their corresponding fields in `BigQuery` <br/>
+
+<br/>
+
+The following are the mappings for *Content Usage* explore:
+
+|LookML|BigQuery|Type|
+|--|--|--|
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -366,6 +433,10 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 [ref-esa-dashboards]: https://cloud.google.com/looker/docs/system-activity-dashboards
 [ref-support-export-esa]: https://www.googlecloudcommunity.com/gc/Developing-Applications/Write-the-result-of-a-Looker-query-to-BigQuery-with-Cloud/m-p/576853
 [ref-looker-api-parameters]: https://www.googlecloudcommunity.com/gc/Developing-Applications/Can-I-query-system-activity-explores-using-sdk-method/m-p/576926
+
+
+[looker-lookml-fields-extract]: ./image/looker-to-lookml-fields-extraction.png
+
 [cloud-storage-lifecycle]: ./image/cloud-storage-lifecycle-management.png
 [cloud-composer-pipeline]: ./image/cloud-composer-pipeline.png
 [cloud-composer-local-log]: ./image/cloud-composer-local-log.png

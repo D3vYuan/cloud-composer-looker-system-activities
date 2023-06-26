@@ -5,7 +5,7 @@ from parameters.looker_parameters import LookParams
 
 DEFAULT_FIELDS = ['content_usage.content_id', 'content_usage.content_title', 'content_usage.content_type', 
                     'content_usage.days_since_last_access_tiers','content_usage.days_since_last_accessed',
-                    'content_usage.id','content_usage.api_count','content_usage.embed_count','content_usage.embed_count',
+                    'content_usage.id','content_usage.api_count','content_usage.embed_count','content_usage.favorite_count',
                     'content_usage.public_count','content_usage.schedule_count','content_usage.other_count',
                     'content_usage.last_accessed_time']
 DEFAULT_FILTERS = { "content_usage.last_accessed_time": "1 day ago" }
