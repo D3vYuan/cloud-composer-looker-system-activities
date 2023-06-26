@@ -168,21 +168,35 @@ Base on the requirements, the following components are required to be setup:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Looker 
+### Looker API 
+The method *run_inline_query* will be used to extract the data from the *Content Usage* explore
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Looker API 
+### Looker 
+Generate access token for the user accessing `Looker API`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Cloud Storage
 
+#### Jsonlines Files
+Create the bucket to house the temporary output file from the `Looker API`
+
+Set the Lifecycle Management for the bucket to housekeep jsonlines (*jsonl*) files to optimize for storage and costing
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+#### Dag Files
+Upload the dag file and the python scripts into the dag bucket that is connected to `Cloud Composer` 
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### BigQuery
 
-Create the table to house the *Content Usage* data with the following fields:
+Create the table (*Content_Usage*) to house the *Content Usage* data with the following fields:
 
 <br/>
 
@@ -212,9 +226,17 @@ Create the table to house the *Content Usage* data with the following fields:
 
 ### IAM
 
+Assign the sufficient permissions for the `Cloud Composer` service account to access `Cloud Storage` and `BigQuery` during the dag run.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Cloud Composer
+
+#### Install Dependencies
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+#### Setup Variables
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
