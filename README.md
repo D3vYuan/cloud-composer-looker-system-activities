@@ -134,18 +134,79 @@ Base on the requirements, the following are the tasks in the pipelines:
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Get Content Usage Activity
+This task make use of the `Looker API` to retrieve the *Content Usage* data and save it to local directory (*/tmp*). <br/>
+It will then return the **source file** (*content_usage_source_file*) and **destination file** (*content_usage_dest_file*) which can be used by other downstream tasks.
+<br/>
 
+```python
+@task(task_id="get_content_usage_activity")
+def get_system_activity() -> PlainXComArg:
+    from api_client.looker_api_client import get_content_usage_look
+    import os
+
+    current_timestamp=dt.now().strftime("%Y%m%d")
+    source_file = get_content_usage_look(execution_timestamp = current_timestamp,
+                                            data_fields = CONTENT_USAGE_FIELDS,
+                                            data_filters = CONTENT_USAGE_FILTERS,
+                                            initial_load = CONTENT_USAGE_INITIAL_LOAD)
+    destination_file = os.path.basename(source_file)
+
+    return {
+        "content_usage_source_file" : source_file,
+        "content_usage_dest_file" : destination_file,
+    }
+```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Disable Initial Load Flag
+This task will reset the **initial load flag** (*content_usage_initial_load*) so that the next run will be an incremental run. 
+<br/>
 
+```python
+@task(task_id="disable_initial_load_flag")
+    def disable_initial_load():
+        # Disable initial load after the first load
+        if CONTENT_USAGE_INITIAL_LOAD:
+            Variable.set(key = "content_usage_initial_load", 
+                         value = "false",
+                         description = "Indicates if content_usage table is initial load")
+```
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Upload Result to GCS
+This task will send the *Content Usage* data from local directory (*/tmp*) to the temporary `Cloud Storage`. <br/>
+It make use of the result from the *Get Content Usage Activity* to locate the source and destination file
+<br/>
+
+```python
+upload_file_task = LocalFilesystemToGCSOperator(
+        task_id="upload_result_to_gcs",
+        src="{{task_instance.xcom_pull('get_content_usage_activity')['content_usage_source_file']}}",
+        dst="{{task_instance.xcom_pull('get_content_usage_activity')['content_usage_dest_file']}}",
+        bucket=BUCKET_NAME,
+    )
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Upload GCS to BigQuery
+This task will upload *Content Usage* data from temporary `Cloud Storage` into `BigQuery`. <br/>
+The format of the file should be in **jsonlines** (*jsonl*) format and it will just append to the specify table. <br/>
+`NOTE:` The appending of data might leads to duplication in the `BigQuery` table
+<br/>
+
+```python
+gcs_to_bq_task = GCSToBigQueryOperator(
+        task_id='upload_gcs_to_bigquery',
+        bucket=BUCKET_NAME,
+        source_objects=["{{task_instance.xcom_pull('get_content_usage_activity')['content_usage_dest_file']}}"],
+        destination_project_dataset_table=f"{BIGQUERY_DATASET_ID}.{BIGQUERY_TABLE_NAME}",
+        schema_fields=BIGQUERY_TABLE_SCHEMA,
+        write_disposition='WRITE_APPEND',
+        source_format = "NEWLINE_DELIMITED_JSON",
+    );
+```
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -170,7 +231,7 @@ The following are the execution steps to run the code locally:
     ```
 - Create a file from *looker.ini.example* and name it *looker.ini*. <br/>
 Configure the Looker instance and API Client tokens information <br/>
-NOTE: Change the looker instance port accordingly if a custom port is used
+`NOTE:` Change the looker instance port accordingly if a custom port is used
     ```
     base_url = https://<looker-instance>:19999
     client_id = <looker-api-client-id>
@@ -178,7 +239,7 @@ NOTE: Change the looker instance port accordingly if a custom port is used
     ```
 
 - Execute the main python script *api_client/looker_api_client.py* <br/>
-NOTE: This has to be called within the *api_client* folder
+`NOTE:` This has to be called within the *api_client* folder
     ```bash
     cd api_client
     python3 looker_api_client.py
@@ -264,7 +325,8 @@ The following are some challenges encountered:
 <!-- Enhancements -->
 ## Possible Enhancements
 
-- [ ] Add Masking of Sensitive Data before Ingesting to BigQuery
+- [ ] Add Masking of Sensitive Data before ingesting to `BigQuery`
+- [ ] Add Deduplication Step for Data before Ingesting to `BigQuery`
 - [ ] Add Exception handling if previous day has no data (Currently, it will show as `fail` in pipeline)
 - [ ] Add Support for the Rest of the System Activities
 - [ ] Add Support for multiple Looker instance
@@ -286,6 +348,10 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 ## Acknowledgments
 
+- [System Activities Explores][ref-esa-explores]
+- [System Activities Dashboards][ref-esa-dashboards]
+- [Solution to export Elite System Activites Log][ref-support-export-esa]
+- [Parameters to Looker API][ref-looker-api-parameters]
 - [Readme Template][template-resource]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -296,6 +362,10 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [template-resource]: https://github.com/othneildrew/Best-README-Template/blob/master/README.md
+[ref-esa-explores]: https://cloud.google.com/looker/docs/usage-reports-with-system-activity-explores
+[ref-esa-dashboards]: https://cloud.google.com/looker/docs/system-activity-dashboards
+[ref-support-export-esa]: https://www.googlecloudcommunity.com/gc/Developing-Applications/Write-the-result-of-a-Looker-query-to-BigQuery-with-Cloud/m-p/576853
+[ref-looker-api-parameters]: https://www.googlecloudcommunity.com/gc/Developing-Applications/Can-I-query-system-activity-explores-using-sdk-method/m-p/576926
 [cloud-storage-lifecycle]: ./image/cloud-storage-lifecycle-management.png
 [cloud-composer-pipeline]: ./image/cloud-composer-pipeline.png
 [cloud-composer-local-log]: ./image/cloud-composer-local-log.png
