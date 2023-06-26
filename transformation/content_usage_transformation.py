@@ -5,6 +5,7 @@ import re
 class ContentUsageTransformation():
     def __init__(self, raw_message):
         self.raw_message = self.pre_processed(raw_message)
+        # TODO: Parameterized this specification
         self.specification = {
             '$on': 'result',
             'content_id': ["content_id"],
@@ -15,6 +16,7 @@ class ContentUsageTransformation():
             'id': ["id"],
             'api_count': ["api_count"],
             'embed_count': ["embed_count"],
+            'favorite_count': ["favorite_count"],
             'public_count': ["public_count"],
             'schedule_count': ["schedule_count"],
             'other_count': ["other_count"],
