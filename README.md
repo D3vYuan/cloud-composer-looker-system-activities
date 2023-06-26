@@ -51,6 +51,7 @@
         </ul>
     </li>
     <li><a href="#challenges">Challenges</a></li>
+    <li><a href="#possible-enhancements">Possible Enhancements</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
 </ol>
 <!-- </details> -->
@@ -115,6 +116,14 @@ Base on the requirements, the following components are required to be setup:
 
 ## Implementation
 
+<br/>
+
+| ![cloud-composer-pipeline][cloud-composer-pipeline] | 
+|:--:| 
+| *Cloud Composer Data Pipeline* |
+
+<br/>
+
 Base on the requirements, the following are the tasks in the pipelines:
 
 - `Get Content Usage Activity` - Call the `Looker API` to retrieve the *Content Usage* data and save it to local directory (*/tmp*)
@@ -175,21 +184,73 @@ NOTE: This has to be called within the *api_client* folder
     python3 looker_api_client.py
     ```
 
+- Verify that the program executed successfully and generated the output file <br/>
+    **Logs** <br/>
+
+    | ![cloud-composer-local-log][cloud-composer-local-log] | 
+    |:--:| 
+    | *Cloud Composer Local Run Log* |
+
+    <br/>
+
+    **Output** <br/>
+
+    | ![cloud-composer-local-output][cloud-composer-local-output] | 
+    |:--:| 
+    | *Cloud Composer Local Run Output* |
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Via Cloud Composer
 The following are the execution steps to run the code in `Cloud Composer`:
 
-- Upload dag file *trigger-look-content-usage-dag.py* and its supporting python scripts into the `Cloud Composer` dag bucket
-- Wait for the new version of *trigger-look-content-usage-activity* to appear in the `Cloud Composer` dag list
-- Click the *trigger-look-content-usage-activity* to enter the dag details
-- Click the play button to execute *trigger-look-content-usage-activity* and wait for it to be completed
+- Upload dag file *trigger-look-content-usage-dag.py* and its supporting python scripts into the `Cloud Composer` dag bucket <br/>
+    **Dag Files** <br/>
 
+    | ![cloud-composer-hosted-dag-files][cloud-composer-hosted-dag-files] | 
+    |:--:| 
+    | *Cloud Composer Dag Files* |
+
+- Wait for the new version of *trigger-look-content-usage-activity* to appear in the `Cloud Composer` dag list
+- Click the *trigger-look-content-usage-activity* to enter the dag details <br/>
+    **Dag** <br/>
+
+    | ![cloud-composer-hosted-dag][cloud-composer-hosted-dag] | 
+    |:--:| 
+    | *Cloud Composer Dag* |
+
+- Click the play button to execute *trigger-look-content-usage-activity* and wait for it to be completed <br/>
+    **Dag** <br/>
+
+    | ![cloud-composer-hosted-dag-run][cloud-composer-hosted-dag-run] | 
+    |:--:| 
+    | *Cloud Composer Run Dag* |
+
+- Verify that the program executed successfully and generated the output file <br/>
+    **Log** <br/>
+
+    | ![cloud-composer-hosted-log][cloud-composer-hosted-log] | 
+    |:--:| 
+    | *Cloud Composer Run Log* |
+
+    **Output** <br/>
+
+    | ![cloud-composer-hosted-output][cloud-composer-hosted-output] | 
+    |:--:| 
+    | *Cloud Composer Run Output* |
+    
+- Verify that the program executed successfully and inserted the data into `BigQuery` <br/>
+    **BigQuery** <br/>
+
+    | ![cloud-composer-hosted-bq][cloud-composer-hosted-bq] | 
+    |:--:| 
+    | *BigQuery Output* |
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ---
 
+<!-- Challenges -->
 ## Challenges
 
 The following are some challenges encountered:
@@ -200,20 +261,17 @@ The following are some challenges encountered:
 
 ---
 
-<!-- ROADMAP>
-## Roadmap
+<!-- Enhancements -->
+## Possible Enhancements
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [ ] Add Masking of Sensitive Data before Ingesting to BigQuery
+- [ ] Add Exception handling if previous day has no data (Currently, it will show as `fail` in pipeline)
+- [ ] Add Support for the Rest of the System Activities
+- [ ] Add Support for multiple Looker instance
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+<!-- See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues). -->
 
-<p align="right">(<a href="#top">back to top</a>)</p -->
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- CONTACT>
 ## Contact
@@ -238,5 +296,14 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [template-resource]: https://github.com/othneildrew/Best-README-Template/blob/master/README.md
-
+[cloud-storage-lifecycle]: ./image/cloud-storage-lifecycle-management.png
+[cloud-composer-pipeline]: ./image/cloud-composer-pipeline.png
+[cloud-composer-local-log]: ./image/cloud-composer-local-log.png
+[cloud-composer-local-output]: ./image/cloud-composer-local-output.png
+[cloud-composer-hosted-dag-files]: ./image/cloud-composer-hosted-dag-files.png
+[cloud-composer-hosted-dag-run]: ./image/cloud-composer-hosted-dag-run.png
+[cloud-composer-hosted-dag]: ./image/cloud-composer-hosted-dag.png
+[cloud-composer-hosted-log]: ./image/cloud-composer-hosted-log.png
+[cloud-composer-hosted-output]: ./image/cloud-composer-hosted-output.png
+[cloud-composer-hosted-bq]: ./image/cloud-composer-hosted-bq.png
 <!-- [cloud-storage-buckets]: ./images/log_analytics_pipeline.png -->
