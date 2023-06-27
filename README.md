@@ -223,7 +223,7 @@ Create the bucket to house the temporary output file from the `Looker API` <br/>
 |:--:| 
 | *Temporary Bucket to hold the Looker API data* |
 
-Set the Lifecycle Management for the bucket to housekeep jsonlines (*jsonl*) files to optimize for storage and costing. In the following, all (*jsonl*) files more than 3 days will be delete from the bucket <br/>
+Set the Lifecycle Management for the bucket to housekeep jsonlines (*jsonl*) files to optimize for storage and costing. In the following, all jsonlines(*jsonl*) files more than 3 days will be delete from the bucket <br/>
 
 | ![cloud-storage-lifecycle][cloud-storage-lifecycle] | 
 |:--:| 
@@ -282,6 +282,18 @@ Create the table (*Content_Usage*) to house the *Content Usage* data with the fo
 ### IAM
 
 Assign the sufficient permissions for the `Cloud Composer` service account to access `Cloud Storage` and `BigQuery` during the dag run.
+
+| ![cloud-composer-hosted-sa][cloud-composer-hosted-sa] | 
+|:--:| 
+| *Cloud Composer Service Account* |
+
+<br>
+
+`NOTE:` While the following image shows the service account being assigned *admin* rights, one may just provide sufficient permissions to the account for accessing `Cloud Storage` and `BigQuery` <br/>
+
+| ![cloud-composer-hosted-sa-permissions][cloud-composer-hosted-sa-permissions] | 
+|:--:| 
+| *Cloud Composer Service Account Privileges* |
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -607,6 +619,10 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 [cloud-composer-pipeline]: ./image/cloud-composer-pipeline.png
 [cloud-composer-local-log]: ./image/cloud-composer-local-log.png
 [cloud-composer-local-output]: ./image/cloud-composer-local-output.png
+
+[cloud-composer-hosted-sa]: ./image/cloud-composer-hosted-service-account.png
+[cloud-composer-hosted-sa-permissions]: ./image/cloud-composer-hosted-service-account-permissions.png
+
 [cloud-composer-hosted-dependencies]: ./image/cloud-composer-hosted-dependencies.png
 [cloud-composer-hosted-variables]: ./image/cloud-composer-hosted-variables.png
 [cloud-composer-hosted-dag-folder]: ./image/cloud-composer-hosted-dag-folder.png
