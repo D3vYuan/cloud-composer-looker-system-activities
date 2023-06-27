@@ -458,6 +458,8 @@ There are 2 modes to test out the implementation
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Via Local Run
+`NOTE:` This mode of run only generate the jsonline (*jsonl*) file for the *Content Usage*. One has to then manually import this file into `BigQuery` to see the result.
+
 The following are the execution steps to run the code locally:
 
 - Download Packages in the *requirements.txt* for the program <br/>
@@ -553,7 +555,6 @@ The following are the execution steps to run the code in `Cloud Composer`:
 
 The following are some challenges encountered:
 - Extracting the information via the `Looker API`
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Challenge #1: Extracting information via the `Looker API`
