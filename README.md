@@ -69,7 +69,8 @@
 
 ## About The Project
 
-This project is created to showcase how we can leverage `Cloud Composer` to extract the System Activities from a hosted Looker instance, into their `BigQuery` for audit and analytics purposes. For this case study, we will be exporting the *Content Usage* explore.
+This project is created to showcase how we can leverage `Cloud Composer` to extract the System Activities from a hosted Looker instance, into `BigQuery` for audit and analytics purposes. <br/>
+For this case study, we will be exporting the *Content Usage* explore.
 
 The following are some of the requirements:
 
@@ -306,7 +307,7 @@ The following are the dependencies needed for the dag run:
 
 |#|Dependencies|Description
 |--|--|--|
-|1|json-converted|Use to map the json into another format|
+|1|json-converter|Use to map the json into another format|
 |2|jsonlines|Use to map the json into json lines to be ingested into Bigquery|
 |3|looker-sdk|Use to call the Looker API|
 
@@ -324,7 +325,7 @@ The following are the variables needed for the dag run:
 
 |#|Variables|Description|Example
 |--|--|--|--|
-|1|bigquery_content_usage_schema|The schema for the content_usage table. <br/> (*jsonline value*)|<code>{'name': 'content_id', 'type': 'STRING', 'mode': 'NULLABLE'},<br/>{'name': 'content_title', 'type': 'STRING', 'mode': 'NULLABLE'},<br/>{'name': 'content_type', 'type': 'STRING', 'mode': 'NULLABLE'},<br/>{'name': 'days_since_last_access_tiers', 'type': 'STRING', 'mode': 'NULLABLE'},<br/>{'name': 'days_since_last_accessed', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'id', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'api_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'embed_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'favorite_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'public_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'schedule_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'other_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'last_accessed_time', 'type': 'DATETIME', 'mode': 'NULLABLE'}</code>
+|1|bigquery_content_usage_schema|The schema for the content_usage table. <br/> (*jsonline value*)|{'name': 'content_id', 'type': 'STRING', 'mode': 'NULLABLE'},<br/>{'name': 'content_title', 'type': 'STRING', 'mode': 'NULLABLE'},<br/>{'name': 'content_type', 'type': 'STRING', 'mode': 'NULLABLE'},<br/>{'name': 'days_since_last_access_tiers', 'type': 'STRING', 'mode': 'NULLABLE'},<br/>{'name': 'days_since_last_accessed', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'id', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'api_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'embed_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'favorite_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'public_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'schedule_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'other_count', 'type': 'INTEGER', 'mode': 'NULLABLE'},<br/>{'name': 'last_accessed_time', 'type': 'DATETIME', 'mode': 'NULLABLE'}
 |2|bigquery_content_usage_table|The table in bigquery to save the content usage activities|content_usage|
 |3|bigquery_dataset_id|The dataset id of the bigquery for saving the looker system activities|<p>Please refer to <a href="#bigquery-creation">bigquery creation</a></p>|
 |4|bigquery_location|The location of the bigquery|us-central1|
@@ -559,8 +560,8 @@ The following are some challenges encountered:
 
 ### Challenge #1: Extracting information via the `Looker API`
 
-In order for us to process the data, we need to know the type of format that `Looker API` return for us to perform any transformation on it. <br/>
-Lucky for us, there is `API Explorer` that are available for install in the `Looker` marketplace
+In order for us to process the data, we need to know the type of format that `Looker API` return for us to perform any transformation on it. 
+Lucky for us, there is `API Explorer` that are available for the `Looker` marketplace
 
 | ![looker-api-explorer-application][looker-api-explorer-application] | 
 |:--:| 
