@@ -561,7 +561,7 @@ The following are some challenges encountered:
 ### Challenge #1: Extracting information via the `Looker API`
 
 In order for us to process the data, we need to know the type of format that `Looker API` return for us to perform any transformation on it. 
-Lucky for us, there is `API Explorer` that are available for the `Looker` marketplace
+Lucky for us, there is `API Explorer` that are available in the `Looker` marketplace.
 
 | ![looker-api-explorer-application][looker-api-explorer-application] | 
 |:--:| 
