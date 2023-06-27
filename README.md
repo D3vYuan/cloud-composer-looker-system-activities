@@ -549,8 +549,35 @@ The following are the execution steps to run the code in `Cloud Composer`:
 ## Challenges
 
 The following are some challenges encountered:
-
 - Extracting the information via the `Looker API`
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Challenge #1: Extracting information via the `Looker API`
+
+In order for us to process the data, we need to know the type of format that `Looker API` return for us to perform any transformation on it. <br/>
+Lucky for us, there is `API Explorer` that are available for install in the `Looker` marketplace
+
+| ![looker-api-explorer-application][looker-api-explorer-application] | 
+|:--:| 
+| *Looker API Explorer* |
+
+<br/>
+
+Once installed, it will appear in the application sidebar and we can launch it to try out the various endpoints which `Looker API` offers. <br/>
+`NOTE:` You might need to disable *developer mode* for the `API Explorer` to work
+
+| ![looker-api-explorer-request][looker-api-explorer-request] | 
+|:--:| 
+| *Looker API Request* |
+
+<br/>
+
+| ![looker-api-explorer-response][looker-api-explorer-response] | 
+|:--:| 
+| *Looker API Response* |
+
+<br/>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -604,6 +631,7 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 [looker-lookml-fields-extract]: ./image/looker-to-lookml-fields-extraction.png
 [bigquery-fields-schema]: ./image/bigquery-fields-schema.png
 
+[looker-api-explorer-application]: ./image/looker-api-explorer-application.png
 [looker-api-explorer-request]: ./image/looker-api-explorer-request.png
 [looker-api-explorer-response]: ./image/looker-api-explorer-response.png
 
