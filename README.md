@@ -195,6 +195,7 @@ The following is a sample body for the *run_inline_query*: <br/>
 
 ### Looker 
 <div id="looker-api-account"></div>
+
 Generate access token for the user accessing `Looker API`. Under Admin > Locate the User Account to use for the `Looker API` > Click to see details of User Account > Under API Keys, click Edit Keys > Create New Keys <br/>
 
 `NOTE:` You will need to assign the User Account with sufficient privileges to view the System Activities in `Looker` <br/>
@@ -215,6 +216,7 @@ Generate access token for the user accessing `Looker API`. Under Admin > Locate 
 
 #### Jsonlines Files
 <div id="looker-bucket-creation"></div>
+
 Create the bucket to house the temporary output file from the `Looker API` <br/>
 
 | ![cloud-storage-temporary-bucket][cloud-storage-temporary-bucket] | 
@@ -248,6 +250,7 @@ The following are the files to be uploaded to the `Cloud Composer` dag directory
 
 ### BigQuery
 <div id="bigquery-creation"></div>
+
 Create the table (*Content_Usage*) to house the *Content Usage* data with the following fields:
 
 <br/>
