@@ -156,6 +156,7 @@ The following are the mappings for *Content Usage* explore:
 <!-- Setup -->
 
 ## Setup
+<div id="cloud-composer-setup"></div>
 
 Base on the requirements, the following components are required to be setup:
 
@@ -497,6 +498,8 @@ Configure the Looker instance and API Client tokens information <br/>
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Via Cloud Composer
+`NOTE:` Assuming that the `Cloud Composer` setup steps have been completed, otherwise see <a href="#cloud-composer-setup">here</a> before proceeding. <br/>
+
 The following are the execution steps to run the code in `Cloud Composer`:
 
 - Upload dag file *trigger-look-content-usage-dag.py* and its supporting python scripts into the `Cloud Composer` dag bucket <br/>
